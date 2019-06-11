@@ -23,14 +23,13 @@
     </div>
   </div>
 
-  <div class="row align-items-center justify-content-center">
-    <div class="col-sm-6">
-      <input type="text" class="form-control " (keyup.enter)="sendMessage()" [(ngModel)]="msg" />
-    </div>
-    <div class="col-sm-2">
-      <button class="btn btn-success sendbtn" (click)="sendMessage()">
-        <i class="far fa-share-square"></i> Enviar
-      </button>
-    </div>
+  <div [ngSwitch]="inputType">
+    <ng-container *ngSwitchCase="'text'">
+      <input-text (send)="sendMessage($event)"></input-text>
+    </ng-container>
+    <ng-container *ngSwitchCase="'radio'">
+      <input-radio></input-radio>
+    </ng-container>
+    <div></div>
   </div>
 </div>

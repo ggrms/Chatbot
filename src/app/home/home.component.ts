@@ -1,12 +1,7 @@
 import { element } from 'protractor';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { BootService } from '../core/services/boot.service';
-
-export interface Message {
-  remetente?: string;
-  mensagem: string;
-  data?: Date;
-}
+import { Message } from '@app/core/interfaces/message';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +10,8 @@ export interface Message {
 })
 export class HomeComponent {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  public inputType = 'text';
 
-  msg: string;
   resultados: Message[];
   constructor(private chatBoot: BootService) {
     this.initBoot();
@@ -25,25 +20,25 @@ export class HomeComponent {
   initBoot() {
     this.resultados = [];
     this.chatBoot.getResponse('oi').subscribe((lista: any) => {
-      lista.result.fulfillment.messages.forEach(element => {
+      lista.result.fulfillment.messages.forEach((element: any) => {
         this.resultados.push({ remetente: 'boot', mensagem: element.speech, data: lista.timestamp });
       });
     });
     this.chatBoot.getResponse('ajuda').subscribe((lista: any) => {
-      lista.result.fulfillment.messages.forEach(element => {
+      lista.result.fulfillment.messages.forEach((element: any) => {
         this.resultados.push({ remetente: 'boot', mensagem: element.speech, data: lista.timestamp });
       });
     });
   }
 
-  sendMessage() {
-    this.resultados.push({ remetente: 'eu', mensagem: this.msg, data: new Date() });
-    this.chatBoot.getResponse(this.removerAcentos(this.msg)).subscribe((lista: any) => {
-      lista.result.fulfillment.messages.forEach(element => {
+  sendMessage(msg: string) {
+    this.resultados.push({ remetente: 'eu', mensagem: msg, data: new Date() });
+    this.chatBoot.getResponse(msg).subscribe((lista: any) => {
+      lista.result.fulfillment.messages.forEach((element: any) => {
         this.resultados.push({ remetente: 'boot', mensagem: element.speech, data: lista.timestamp });
       });
     });
-    this.msg = '';
+    this.inputType = 'radio';
   }
 
   ngAfterViewChecked() {
@@ -56,7 +51,7 @@ export class HomeComponent {
     } catch (err) {}
   }
 
-  private removerAcentos(s) {
+  private removerAcentos(s: any) {
     return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 }

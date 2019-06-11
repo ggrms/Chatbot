@@ -1,0 +1,9 @@
+<!--component html goes here -->
+<div class="row align-items-center justify-content-center">
+  <div class="col-sm-6">
+    <input type="text" class="form-control " (keyup.enter)="sendInput()" [(ngModel)]="message" />
+  </div>
+  <div class="col-sm-2">
+    <button class="btn btn-success sendbtn" (click)="sendInput()"><i class="far fa-share-square"></i> Enviar</button>
+  </div>
+</div>
