@@ -1,0 +1,25 @@
+{
+  "generator-ngx-rocket": {
+    "version": "6.2.1",
+    "props": {
+      "location": "path",
+      "strict": false,
+      "skipInstall": false,
+      "skipQuickstart": false,
+      "initGit": true,
+      "appName": "Angular-Chatbot",
+      "target": ["web"],
+      "pwa": false,
+      "ui": "bootstrap",
+      "auth": true,
+      "lazy": false,
+      "angulartics": false,
+      "tools": ["prettier", "hads"],
+      "utility": [],
+      "projectName": "angular-chatbot",
+      "packageManager": "npm",
+      "mobile": [],
+      "desktop": []
+    }
+  }
+}
